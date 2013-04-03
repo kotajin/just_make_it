@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang ="ja">
+
+<head>
+	<meta charset = "UTF-8" />
+	<title>スロット</title>
+</head>
+
+<body>
+	<h1>スロットマシーン</h1>
+	<span id = "slot_0" >7</span>
+	<span id = "slot_1" >7</span>
+	<span id = "slot_2" >7</span>
+
+	<br>
+
+	<input type = "button" id = "start" value = "START!" onclick = "start();" >
+	<input type = "button" id = "stop" value = "STOP!" onclick = "stop();" >
+	<input type = "button" id = "reset" value = "RESET!" onclick = "reset();" >
+
+	<script>
+		//変数宣言
+		var i = 0;
+		var r = [];
+		var j = 0;
+		var timrtId_0;
+		var timerId_1;
+		var timerId_2;
+
+		//メソッド
+		
+		//スタートボタン押下時のイベント
+		function start(){
+			if(j<1){
+			var i = 0;
+			var r = [];
+			start_0();
+			start_1();
+			start_2();
+			j++
+			}else{
+				alert("やり直したいときはRESETを押してね！")
+			}
+
+		}
+
+		//左端のスロット
+		function start_0(){
+			document.getElementById('slot_0').innerHTML = Math.floor(Math.random()*10);
+			timerId_0 = setTimeout(start_0,100);
+		}
+
+		//真ん中のスロット
+		function start_1(){
+			document.getElementById('slot_1').innerHTML = Math.floor(Math.random()*10);
+			timerId_1 = setTimeout(start_1,100);
+		}
+
+		//右端のスロット
+		function start_2(){
+			document.getElementById('slot_2').innerHTML = Math.floor(Math.random()*10);
+			timerId_2 = setTimeout(start_2,100);
+		}
+
+		function stop(){
+			if(i<1){
+				clearTimeout(timerId_0);
+				r[i] = document.getElementById('slot_0').innerHTML;
+				i++
+			}else if(i<2){
+				clearTimeout(timerId_1);
+				r[i] = document.getElementById('slot_1').innerHTML;
+				i++
+			}else if(i<3){
+				clearTimeout(timerId_2);
+				r[i] = document.getElementById('slot_2').innerHTML;
+				i++
+				r.sort();
+				if(r[0] == r[1] && r[1] == r[2]){
+					alert('３つ揃ったね！');
+				} else if(r[0] == r[1] || r[1] == r[2]){
+					alert('２つ揃ったね！');
+				}else{
+					alert('残念！');
+				}
+			}
+		}
+
+		function reset(){
+			i=0
+			r=[];
+			j=0;
+			clearTimeout(timerId_0);
+			clearTimeout(timerId_1);
+			clearTimeout(timerId_2);
+			document.getElementById('slot_0').innerHTML = 7;
+			document.getElementById('slot_1').innerHTML = 7;
+			document.getElementById('slot_2').innerHTML = 7;
+		}
+	</script>
+</body>
+</html>
